@@ -109,7 +109,7 @@ app.layout = html.Div([
         id='species',
         options=[{'label': i, 'value': i} for i in species],
         value="'Schubert' Chokecherry",
-        style={'height': 'auto', 'width': '300px'}
+        style={'height': 'auto', 'width': '100px'}
     ),
     dcc.Graph(id='graph-ratio'),
     dcc.Graph(id='graph-health')
@@ -131,35 +131,35 @@ def dash(Species):
         x=queens['health'],
         y=queens['ratio'],
         name='Queens',
-        opacity=0.9
+
     ))
 
     facts.append(go.Bar(
         x=manhattan['health'],
         y=manhattan['ratio'],
         name='Manhattan',
-        opacity=0.9
+
     ))
 
     facts.append(go.Bar(
         x=bronx['health'],
         y=bronx['ratio'],
         name='Bronx',
-        opacity=0.9
+
     ))
 
     facts.append(go.Bar(
         x=brooklyn['health'],
         y=brooklyn['ratio'],
         name='Brooklyn',
-        opacity=0.9
+
     ))
 
     facts.append(go.Bar(
         x=staten_island['health'],
         y=staten_island['ratio'],
         name='Staten Island',
-        opacity=0.9
+
     ))
 
     return {
@@ -167,7 +167,7 @@ def dash(Species):
         'layout': go.Layout(
             xaxis={'title': 'Health'},
             yaxis={'title': 'Proportion'},
-            legend=dict(x=-.15, y=1.5)
+            legend=dict(x=-.25, y=1.5)
         )
     }
 
@@ -180,15 +180,14 @@ def dash2(Species):
    new1 = hlt_index[hlt_index.spc_common == Species]
    facts2 = []
    for i in new1.borough.unique():
-        df_by_borough = new1[new1['borough'] == i]
+        df = new1[new1['borough'] == i]
         facts2.append(go.Scatter(
-            x=df_by_borough['steward_level'],
-            y=df_by_borough['health_index'],
+            x=df['steward_level'],
+            y=df['health_index'],
             mode='markers',
-            opacity=0.9,
             marker={
-                'size': 10,
-                'line': {'width': 0.75, 'color': 'white'}
+                'size': 15,
+                'line': {'width': 1, 'color': 'white'}
             },
             name=i
             ))
@@ -199,8 +198,7 @@ def dash2(Species):
         'layout': go.Layout(
             yaxis={'title': 'Health Index'},
             xaxis=dict(tickvals=[1, 2, 3, 4], ticktext=['None', '1or2', '3or4', '4orMore'], title='Steward'),
-            margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
-            legend=dict(x=-.1, y=1.2)
+            legend=dict(x=-.1, y=.5)
         )
     }
 
